@@ -34,12 +34,16 @@ const createLines = (startX, midX, finX) => {
   return line;
 };
 
-const line1 = createLines(-30, -20, -10);
-const line2 = createLines(40, 20, 0);
+const lineArray = [];
+for (let i = 0; i < 5; i ++) {
+  const startNum = Math.floor(Math.random() * 50);
+  const endNum = startNum - Math.floor(Math.random() * 50);
+  const midNum = endNum + ((startNum - endNum) / 2);
+  console.log(startNum, midNum, endNum);
+  lineArray.push(createLines(startNum, midNum, endNum));
+}
 
 const animate = () => {
-  line1.rotateY(0.005);
-  line2.rotateY(0.005);
   renderer.render(scene, camera);
 };
 renderer.setAnimationLoop(animate);
