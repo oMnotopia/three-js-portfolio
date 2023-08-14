@@ -52,26 +52,19 @@ scene.add( axesHelper );
 const lineArray = [];
 for (let i = 0; i < 100; i ++) {
   //Generate true/false for whether value will be negative or positive
-  const posNeg = Math.floor(Math.random() * 4);
+  const posNeg = Math.floor(Math.random() * 2);
   //Generate random z position
   let randomZ = Math.floor(Math.random() * 50);
   //Generate random x positions
-  let startNum = Math.floor(Math.random() * 50);
-  let endNum = startNum - Math.floor(Math.random() * startNum);
-  let midNum = endNum + ((startNum - endNum) / 2);
+  let startNum = Math.floor(Math.random() * 100) - 50;
+  // let endNum = startNum - Math.floor(Math.random() * startNum);
+  // let midNum = endNum + ((startNum - endNum) / 2);
 
-  if (posNeg === 0) {
-    randomZ *= -1;
-    startNum *= -1;
-    endNum *= -1;
-    midNum *= -1;
-  } else if (posNeg === 1) {
-    startNum *= -1;
-    endNum *= -1;
-    midNum *= -1;
-  } else if (posNeg === 2) {
-    randomZ *= -1;
-  }
+  let midNum = startNum - 15;
+  let endNum = startNum - 30;
+
+  if (posNeg === 0) randomZ *= -1;
+
 
   console.log(startNum, midNum, endNum, randomZ);
   lineArray.push(createLines(startNum, midNum, endNum, randomZ));
@@ -82,12 +75,12 @@ const loader = new FontLoader();
 loader.load('node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
   const geometry = new TextGeometry('Clayton Persinger', {
     font: font,
-    size: 8,
+    size: 5,
     height: 2,
   });
   const material = new THREE.MeshNormalMaterial();
   const textMesh = new THREE.Mesh(geometry, material);
-  textMesh.position.x = -45;
+  textMesh.position.x = -25;
   textMesh.position.y = -2;
   scene.add(textMesh);
 });
