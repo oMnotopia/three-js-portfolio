@@ -3,7 +3,7 @@ import * as THREE from 'three';
 // import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 
 //Colors that a cube at the end of the line can be
-const cubeColors = [0xff0000, 0x00ff00, 0x0000ff];
+const cubeColors = [0xFF6961, 0xA7C7E7, 0x77DD77];
 
 //Create initial scene
 const scene = new THREE.Scene();
