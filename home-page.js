@@ -23,7 +23,7 @@ camera.position.z = 50;
 const orbit = new OrbitControls(camera, renderer.domElement);
 orbit.update();
 
-//Create a cube
+//Create a cube that lines will rotate around
 const cubeGeo = new THREE.BoxGeometry(0, 0, 0);
 const cubeMat = new THREE.MeshBasicMaterial({color: 0xff0000});
 const cube = new THREE.Mesh(cubeGeo, cubeMat);
@@ -40,6 +40,16 @@ const createLines = (startX, midX, endX, randomZ) => {
   points.push(new THREE.Vector3(endX, -10, randomZ));
   const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
   const line = new THREE.Line(lineGeo, lineMat);
+
+  //Generate cube at the end of each line
+  const cubeGeo = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+  const cubeMat = new THREE.MeshBasicMaterial({color: 0xff0000});
+  const cube = new THREE.Mesh(cubeGeo, cubeMat);
+  cube.position.x = endX;
+  cube.position.y = -10;
+  cube.position.z = randomZ;
+  line.add(cube);
+
   scene.add(line);
   return line;
 };
@@ -57,33 +67,13 @@ for (let i = 0; i < 100; i ++) {
   let randomZ = Math.floor(Math.random() * 50);
   //Generate random x positions
   let startNum = Math.floor(Math.random() * 100) - 50;
-  // let endNum = startNum - Math.floor(Math.random() * startNum);
-  // let midNum = endNum + ((startNum - endNum) / 2);
-
   let midNum = startNum - 15;
   let endNum = startNum - 30;
 
   if (posNeg === 0) randomZ *= -1;
 
-
-  console.log(startNum, midNum, endNum, randomZ);
   lineArray.push(createLines(startNum, midNum, endNum, randomZ));
 }
-
-//Generate text
-// const loader = new FontLoader();
-// loader.load('node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
-//   const geometry = new TextGeometry('Clayton Persinger', {
-//     font: font,
-//     size: 5,
-//     height: 2,
-//   });
-//   const material = new THREE.MeshNormalMaterial();
-//   const textMesh = new THREE.Mesh(geometry, material);
-//   textMesh.position.x = -25;
-//   textMesh.position.y = -2;
-//   scene.add(textMesh);
-// });
 
 //Attach lines to cube for rotation
 lineArray.forEach(line => cube.add(line));
