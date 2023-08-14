@@ -71,19 +71,19 @@ for (let i = 0; i < 100; i ++) {
 }
 
 //Generate text
-const loader = new FontLoader();
-loader.load('node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
-  const geometry = new TextGeometry('Clayton Persinger', {
-    font: font,
-    size: 5,
-    height: 2,
-  });
-  const material = new THREE.MeshNormalMaterial();
-  const textMesh = new THREE.Mesh(geometry, material);
-  textMesh.position.x = -25;
-  textMesh.position.y = -2;
-  scene.add(textMesh);
-});
+// const loader = new FontLoader();
+// loader.load('node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
+//   const geometry = new TextGeometry('Clayton Persinger', {
+//     font: font,
+//     size: 5,
+//     height: 2,
+//   });
+//   const material = new THREE.MeshNormalMaterial();
+//   const textMesh = new THREE.Mesh(geometry, material);
+//   textMesh.position.x = -25;
+//   textMesh.position.y = -2;
+//   scene.add(textMesh);
+// });
 
 //Attach lines to cube for rotation
 lineArray.forEach(line => cube.add(line));
