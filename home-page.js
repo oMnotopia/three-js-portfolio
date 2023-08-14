@@ -54,21 +54,46 @@ const createLines = (startX, midX, endX, randomZ) => {
   return line;
 };
 
-//Axis helper
-const axesHelper = new THREE.AxesHelper(10);
-scene.add( axesHelper );
+// //Axis helper
+// const axesHelper = new THREE.AxesHelper(10);
+// scene.add( axesHelper );
 
 //Generate a specific number of lines with random variables passed to line generator
 const lineArray = [];
 for (let i = 0; i < 100; i ++) {
+
   //Generate true/false for whether value will be negative or positive
   const posNeg = Math.floor(Math.random() * 2);
   //Generate random z position
-  let randomZ = Math.floor(Math.random() * 50);
+  let randomZ = Math.floor(Math.random() * 60);
   //Generate random x positions
-  let startNum = Math.floor(Math.random() * 100) - 50;
+  let startNum = Math.floor(Math.random() * 50);
   let midNum = startNum - 15;
   let endNum = startNum - 30;
+
+
+  //Evenly distribute values in 4 x-z coordinate zones;
+  if (i < 25) {
+    //Quadrant 1
+    randomZ *= -1;
+  } else if (i < 50) {
+    //Quadrant 2
+    randomZ *= -1;
+    if (startNum > 31) {
+      const valueStore = startNum;
+      startNum = endNum * -1;
+      midNum *= -1;
+      endNum = valueStore * -1;
+    }
+  } else if (i < 75) {
+    if (startNum > 31) {
+      const valueStore = startNum;
+      startNum = endNum * -1;
+      midNum *= -1;
+      endNum = valueStore * -1;
+    }
+  }
+ 
 
   if (posNeg === 0) randomZ *= -1;
 
