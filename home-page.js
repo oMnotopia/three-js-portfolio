@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 
 //Create initial scene
 const scene = new THREE.Scene();
@@ -76,11 +77,26 @@ for (let i = 0; i < 100; i ++) {
   lineArray.push(createLines(startNum, midNum, endNum, randomZ));
 }
 
+//Generate text
+const loader = new FontLoader();
+loader.load('node_modules/three/examples/fonts/droid/droid_serif_regular.typeface.json', (font) => {
+  const geometry = new TextGeometry('Clayton Persinger', {
+    font: font,
+    size: 8,
+    height: 2,
+  });
+  const material = new THREE.MeshNormalMaterial();
+  const textMesh = new THREE.Mesh(geometry, material);
+  textMesh.position.x = -45;
+  textMesh.position.y = -2;
+  scene.add(textMesh);
+});
+
 //Attach lines to cube for rotation
 lineArray.forEach(line => cube.add(line));
 
 const animate = () => {
-  cube.rotateY(0.005);
+  cube.rotateY(0.002);
   renderer.render(scene, camera);
 };
 renderer.setAnimationLoop(animate);
