@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import * as THREE from 'three';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+// import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+
+//Colors that a cube at the end of a line can be
+const cubeColors = [0xff0000, 0x00ff00, 0x0000ff];
 
 //Create initial scene
 const scene = new THREE.Scene();
@@ -43,7 +44,7 @@ const createLines = (startX, midX, endX, randomZ) => {
 
   //Generate cube at the end of each line
   const cubeGeo = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-  const cubeMat = new THREE.MeshBasicMaterial({color: 0xff0000});
+  const cubeMat = new THREE.MeshBasicMaterial({color: cubeColors[Math.floor(Math.random() * 3)]});
   const cube = new THREE.Mesh(cubeGeo, cubeMat);
   cube.position.x = endX;
   cube.position.y = -10;
@@ -62,8 +63,6 @@ const createLines = (startX, midX, endX, randomZ) => {
 const lineArray = [];
 for (let i = 0; i < 100; i ++) {
 
-  //Generate true/false for whether value will be negative or positive
-  const posNeg = Math.floor(Math.random() * 2);
   //Generate random z position
   let randomZ = Math.floor(Math.random() * 60);
   //Generate random x positions
@@ -79,23 +78,21 @@ for (let i = 0; i < 100; i ++) {
   } else if (i < 50) {
     //Quadrant 2
     randomZ *= -1;
-    if (startNum > 31) {
+    if (startNum > 30) {
       const valueStore = startNum;
       startNum = endNum * -1;
       midNum *= -1;
       endNum = valueStore * -1;
     }
   } else if (i < 75) {
-    if (startNum > 31) {
+    //Quadrant 3
+    if (startNum > 30) {
       const valueStore = startNum;
       startNum = endNum * -1;
       midNum *= -1;
       endNum = valueStore * -1;
     }
   }
- 
-
-  if (posNeg === 0) randomZ *= -1;
 
   lineArray.push(createLines(startNum, midNum, endNum, randomZ));
 }
