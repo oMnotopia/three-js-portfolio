@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 //Create initial scene
 const scene = new THREE.Scene();
@@ -25,26 +26,32 @@ orbit.update();
 const cubeGeo = new THREE.BoxGeometry(0, 0, 0);
 const cubeMat = new THREE.MeshBasicMaterial({color: 0xff0000});
 const cube = new THREE.Mesh(cubeGeo, cubeMat);
+cube.rotation.x = 0.5;
+cube.rotation.z = -0.5;
 scene.add(cube);
 
 //Create lines
-const createLines = (startX, midX, finX, randomZ) => {
-  const lineMat = new THREE.LineBasicMaterial({color: 0xffff00});
+const createLines = (startX, midX, endX, randomZ) => {
+  const lineMat = new THREE.LineBasicMaterial({color: 0xffffff});
   const points = [];
-  points.push(new THREE.Vector3(startX + 20, -10, randomZ));
-  points.push(new THREE.Vector3(midX + 20, 10, randomZ));
-  points.push(new THREE.Vector3(finX + 20, 30, randomZ));
+  points.push(new THREE.Vector3(startX, 60, randomZ));
+  points.push(new THREE.Vector3(midX, 25, randomZ));
+  points.push(new THREE.Vector3(endX, -10, randomZ));
   const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
   const line = new THREE.Line(lineGeo, lineMat);
   scene.add(line);
   return line;
 };
 
+//Axis helper
+const axesHelper = new THREE.AxesHelper(10);
+scene.add( axesHelper );
+
 //Generate a specific number of lines with random variables passed to line generator
 const lineArray = [];
-for (let i = 0; i < 20; i ++) {
+for (let i = 0; i < 100; i ++) {
   //Generate true/false for whether value will be negative or positive
-  const posNeg = Math.floor(Math.random() * 2);
+  const posNeg = Math.floor(Math.random() * 4);
   //Generate random z position
   let randomZ = Math.floor(Math.random() * 50);
   //Generate random x positions
@@ -52,15 +59,21 @@ for (let i = 0; i < 20; i ++) {
   let endNum = startNum - Math.floor(Math.random() * startNum);
   let midNum = endNum + ((startNum - endNum) / 2);
 
-  if (posNeg === 1) {
+  if (posNeg === 0) {
     randomZ *= -1;
-  } else {
     startNum *= -1;
     endNum *= -1;
     midNum *= -1;
+  } else if (posNeg === 1) {
+    startNum *= -1;
+    endNum *= -1;
+    midNum *= -1;
+  } else if (posNeg === 2) {
+    randomZ *= -1;
   }
+
   console.log(startNum, midNum, endNum, randomZ);
-  lineArray.push(createLines(startNum, midNum, endNum));
+  lineArray.push(createLines(startNum, midNum, endNum, randomZ));
 }
 
 //Attach lines to cube for rotation
