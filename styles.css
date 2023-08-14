@@ -1,0 +1,14 @@
+#info {
+  font-size: 2.25rem;
+  color: #FFFFFF;
+	position: absolute;
+	top: 40vh;
+	width: 100%;
+	text-align: center;
+	z-index: 100;
+	display:block;
+}
+
+#name {
+  color: #E2226D;
+}
