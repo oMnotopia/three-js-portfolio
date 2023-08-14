@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 // import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
 
-//Colors that a cube at the end of a line can be
+//Colors that a cube at the end of the line can be
 const cubeColors = [0xff0000, 0x00ff00, 0x0000ff];
 
 //Create initial scene
@@ -21,8 +21,8 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.z = 50;
-const orbit = new OrbitControls(camera, renderer.domElement);
-orbit.update();
+// const orbit = new OrbitControls(camera, renderer.domElement);
+// orbit.update();
 
 //Create a cube that lines will rotate around
 const cubeGeo = new THREE.BoxGeometry(0, 0, 0);
