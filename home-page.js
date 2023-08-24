@@ -5,7 +5,7 @@ import * as THREE from 'three';
 //Colors that a cube at the end of the line can be
 const cubeColors = [0xFF6961, 0xA7C7E7, 0x77DD77];
 
-//Create initial scene
+//Create initial scene.
 const scene = new THREE.Scene();
 
 //Renderer
